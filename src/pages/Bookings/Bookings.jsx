@@ -12,27 +12,28 @@ const Bookings = () => {
 
   useEffect(() => {
     fetch(url, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'content-type': 'application/json',
-        authorization: `Bearer ${localStorage.getItem('car-doctor-token')}`
-      }
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("car-doctor-token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
-        if(!data.error){
-          setBookings(data)
-        }
-        else{
-          // ideal or standard precess is to log out first then navigate to home page
-          navigate('/')
+        if (!data.error) {
+          setBookings(data);
+        } else {
+          // ideal or standard process is to log out first then navigate to home page
+          navigate("/");
         }
       });
   }, [url, navigate]);
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-error text-center my-8">You have {bookings.length} bookings.</h2>
+      <h2 className="text-2xl font-bold text-error text-center my-8">
+        You have {bookings.length} bookings.
+      </h2>
       <div className="overflow-x-auto w-full">
         <table className="table w-full">
           {/* head */}
@@ -52,14 +53,14 @@ const Bookings = () => {
           </thead>
           <tbody>
             {/* data will be shown by mapping */}
-            {
-                bookings.map(booking => <BookingTableRow
-                    key={booking._id}
-                    booking={booking}
-                    bookings={bookings}
-                    setBookings={setBookings}
-                ></BookingTableRow>)
-            }
+            {bookings.map((booking) => (
+              <BookingTableRow
+                key={booking._id}
+                booking={booking}
+                bookings={bookings}
+                setBookings={setBookings}
+              ></BookingTableRow>
+            ))}
           </tbody>
         </table>
       </div>
